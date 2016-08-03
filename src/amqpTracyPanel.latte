@@ -1,0 +1,34 @@
+<h1>
+	AMQP message log
+</h1>
+<div class="nette-inner">
+	<div n:foreach="$messages as $msg" class="amqp-msg--item">
+		<p>
+		<strong>Time:</strong> <code>{$msg->getDate()->format('j.n.Y H:i:s.u')}</code>
+		</p>
+		<p>
+		<strong>Destination:</strong> <code>{$msg->getRemote()}</code>
+		</p>
+		<p>
+			<strong>Queue name:</strong> <code><i style="color: #0000BB">{$msg->getQueueName()}</i></code>
+		</p>
+		<pre>{$msg->getMsg()}</pre>
+		{if !$iterator->isLast()}
+			<hr>
+		{/if}
+	</div>
+	
+	{if !count($messages)}
+		<p>No messages.</p>
+	{/if}
+</div>
+
+<style>
+	.amqp-msg--item {
+		max-height: 30vh;
+		overflow-y: scroll;
+		padding: 1em .6em !important;
+		background: #ededee !important;
+		margin: 0 .5em 1em !important;
+	}
+</style>
